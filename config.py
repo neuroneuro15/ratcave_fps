@@ -1,2 +1,0 @@
-PLAYER_SPEED = .7
-FULLSCREEN = True
