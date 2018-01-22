@@ -21,7 +21,7 @@ class FPSGame(pyglet.window.Window):
         self.scene = scene
 
     def on_draw(self):
-        with rc.resources.genShader:
+        with rc.default_shader:
             self.scene.draw()
 
     def on_mouse_motion(self, x, y, dx, dy):
@@ -67,7 +67,7 @@ def main():
     reader = rc.WavefrontReader('resources/maze.obj')
 
     arena = reader.get_mesh('Cube')
-    arena.texture = rc.Texture.from_image(rc.resources.img_uvgrid)
+    arena.textures.append(rc.Texture.from_image(rc.resources.img_uvgrid))
     sphere = reader.get_mesh('Sphere')  # , position=(0, 0, -1))
     cylinder = reader.get_mesh('Cylinder')  # , position=(0, 0, -1))
 
@@ -75,7 +75,7 @@ def main():
     player.rotation.axes = 'sxyz'
 
     scene = rc.Scene(meshes=[arena, sphere, cylinder], camera=player, bgColor=(1., 0., 0.))
-    scene.gl_states = scene.gl_states[:-1]
+    #scene.gl_states = scene.gl_states[:-1]
 
     window = FPSGame(player=player, scene=scene, fullscreen=FULLSCREEN)
     pyglet.app.run()
